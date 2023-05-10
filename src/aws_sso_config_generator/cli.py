@@ -21,11 +21,11 @@ def main():
 
 def _parse_config():
     parser = argparse.ArgumentParser(description='Generate AWS SSO named profiles for ~/.aws/config')
-    parser.add_argument('--region', metavar='REGION', required=True, help='AWS region for generated profiles')
-    parser.add_argument('--sso-region', metavar='REGION', required=True, help='AWS SSO region')
-    parser.add_argument('--start-url', metavar='URL', required=True, help='AWS SSO start url')
-    parser.add_argument('--output', help='output format for generated profiles')
-    parser.add_argument('--aws-vault', help='injects custom credential process for aws-vault', action='store_const', const=True, default=False)
+    parser.add_argument('--region', metavar='REGION', help='AWS region for generated profiles', default="us-west-2")
+    parser.add_argument('--sso-region', metavar='REGION', help='AWS SSO region', default="us-west-2")
+    parser.add_argument('--start-url', metavar='URL', help='AWS SSO start url', default="https://apptio-sso.awsapps.com/start")
+    parser.add_argument('--output', help='output format for generated profiles', default="json")
+    parser.add_argument('--aws-vault', help='injects custom credential process for aws-vault', action='store_const', const=True, default=True)
     args = parser.parse_args()
 
     return args
