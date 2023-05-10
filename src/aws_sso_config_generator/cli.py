@@ -10,7 +10,7 @@ def main():
 
     client = AwsSsoClient(region=config.region, start_url=config.start_url)
     writer = ConfigWriter(sso_start_url=config.start_url, sso_region=config.sso_region, region=config.region,
-                          output=config.output)
+                          output=config.output, aws_vault=config.aws_vault)
 
     accounts = client.list_accounts()
     for account in sorted(accounts, key=lambda a: a.account_name):
@@ -25,6 +25,7 @@ def _parse_config():
     parser.add_argument('--sso-region', metavar='REGION', required=True, help='AWS SSO region')
     parser.add_argument('--start-url', metavar='URL', required=True, help='AWS SSO start url')
     parser.add_argument('--output', help='output format for generated profiles')
+    parser.add_argument('--aws-vault', help='injects custom credential process for aws-vault', action='store_const', const=True, default=False)
     args = parser.parse_args()
 
     return args
